@@ -1,5 +1,7 @@
 clc;
 clear all;
+close all;
+
 I=imread('test.jpg');
 I=imresize(I,0.2);
 I=double(rgb2gray(I));
@@ -29,6 +31,28 @@ DoGHalf3=Ihalf3-Ihalf4;
 DoGQ1=Iquarter1-Iquarter2;
 DoGQ2=Iquarter2-Iquarter3;
 DoGQ3=Iquarter3-Iquarter4;
+
+maskConst = 3;
+row = size(DoG1,1);
+col = size(DoG1,2);
+
+sortArray = zeros(1,26);
+
+for i = maskConst:row
+    for j = maskConst:col
+            
+            window1 = uint8(DoG1((i-maskConst+1:i),(j-maskConst+1:j)));
+            window2 = uint8(DoG2((i-maskConst+1:i),(j-maskConst+1:j)));
+            window3 = uint8(DoG3((i-maskConst+1:i),(j-maskConst+1:j)));
+            
+            middleVal = window2(2,2);
+            
+            sortArray = union(window1(1,:),window1(2,:));
+            
+    end
+end
+
+
 
 
 
