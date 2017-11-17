@@ -36,22 +36,37 @@ maskConst = 3;
 row = size(DoG1,1);
 col = size(DoG1,2);
 
-sortArray = zeros(1,26);
 
+keypointsX=zeros(1,2);
+keypointsY=zeros(1,2);
 for i = maskConst:row
     for j = maskConst:col
             
-            window1 = uint8(DoG1((i-maskConst+1:i),(j-maskConst+1:j)));
-            window2 = uint8(DoG2((i-maskConst+1:i),(j-maskConst+1:j)));
-            window3 = uint8(DoG3((i-maskConst+1:i),(j-maskConst+1:j)));
-            
+            window1 = double(DoG1((i-maskConst+1:i),(j-maskConst+1:j)));
+            window2 = double(DoG2((i-maskConst+1:i),(j-maskConst+1:j)));
+            window3 = double(DoG3((i-maskConst+1:i),(j-maskConst+1:j)));
+           
             middleVal = window2(2,2);
-            
+            xCoord=i-maskConst+2;
+            yCoord=j-maskConst+2;
+            sortArray = zeros(1,26);
             sortArray = union(window1(1,:),window1(2,:));
-            
+            sortArray=union(window1(3,:),sortArray);
+            sortArray=union(window2(1,:),sortArray);
+            sortArray=union(window2(3,:),sortArray);
+            sortArray=union(window2(2,1:2:3),sortArray);
+            sortArray=union(window3(1,:),sortArray);
+            sortArray=union(sortArray,window3(2,:));
+            sortArray=union(window3(3,:),sortArray);
+            %union sorun ç?kart?yor
+            if middleVal>sortArray(end) || middleVal <sortArray(1)
+                keypointsX=union(keypointsX,xCoord);
+                keypointsY=union(keypointsY,yCoord);
+            end
+
     end
 end
-
+figure;imshow(uint8(I));hold on ;plot(keypointsX-1,keypointsY,'*');
 
 
 
