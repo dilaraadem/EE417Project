@@ -42,9 +42,9 @@ keypointsCoor = zeros(1,2);
 for i = maskConst:row
     for j = maskConst:col
             
-            window1 = uint8(DoG1((i-maskConst+1:i),(j-maskConst+1:j)));
-            window2 = uint8(DoG2((i-maskConst+1:i),(j-maskConst+1:j)));
-            window3 = uint8(DoG3((i-maskConst+1:i),(j-maskConst+1:j)));
+            window1 = DoG1((i-maskConst+1:i),(j-maskConst+1:j));
+            window2 = DoG2((i-maskConst+1:i),(j-maskConst+1:j));
+            window3 = DoG3((i-maskConst+1:i),(j-maskConst+1:j));
            
             middleVal = window2(2,2);
             
@@ -68,7 +68,7 @@ for i = maskConst:row
 
     end
 end
-figure;imshow(uint8(I));hold on ;plot(keypointsCoor(2:end,1),keypointsCoor(2:end,2),'*');
+figure;imshow(uint8(I));hold on ;plot(keypointsCoor(2:end,2),keypointsCoor(2:end,1),'*');
 
 
 
