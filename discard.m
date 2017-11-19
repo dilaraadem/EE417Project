@@ -1,6 +1,6 @@
 function [ discardedExtrema ] = discard(extrema, DoG)
 
-    thresContrast = 0.03;
+    thresContrast = 0.85;
     eigenRatio = 10;
     
     discardedExtrema = zeros(1,2);

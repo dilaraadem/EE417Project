@@ -5,7 +5,7 @@ row = size(DoG_a,1);
 col = size(DoG_a,2);
 
 sortArray = zeros(26,1);
-extremaCoor = zeros(1,2);
+extremaCoor = zeros(1,3);
 
     for i = maskConst:row
         for j = maskConst:col

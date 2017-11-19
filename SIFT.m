@@ -7,6 +7,7 @@ I=imresize(I,0.2);
 I=double(rgb2gray(I));
 k=sqrt(2);
 sigma=1.6;
+
 I1=imgaussfilt(I,sigma);
 I2=imgaussfilt(I,k*sigma);
 I3=imgaussfilt(I,k^2*sigma);
@@ -33,14 +34,15 @@ DoGQ2=Iquarter2-Iquarter3;
 DoGQ3=Iquarter3-Iquarter4;
 
 extremaCoorFull = extrema(DoG1,DoG2,DoG3);
-figure;imshow(uint8(I));hold on ;plot(extremaCoorFull(2:end,2),extremaCoorFull(2:end,1),'*');
+% figure;imshow(uint8(I));hold on ;plot(extremaCoorFull(2:end,2),extremaCoorFull(2:end,1),'*');
 
-extremaCoorHalf = extrema(DoGHalf1,DoGHalf2,DoGHalf3);
-figure;imshow(uint8(Ihalf));hold on ;plot(extremaCoorHalf(2:end,2),extremaCoorHalf(2:end,1),'*');
+% extremaCoorHalf = extrema(DoGHalf1,DoGHalf2,DoGHalf3);
+% figure;imshow(uint8(Ihalf));hold on ;plot(extremaCoorHalf(2:end,2),extremaCoorHalf(2:end,1),'*');
 
-extremaCoorQuarter = extrema(DoGQ1,DoGQ2,DoGQ3);
-figure;imshow(uint8(Iquarter));hold on ;plot(extremaCoorQuarter(2:end,2),extremaCoorQuarter(2:end,1),'*');
+% extremaCoorQuarter = extrema(DoGQ1,DoGQ2,DoGQ3);
+% figure;imshow(uint8(Iquarter));hold on ;plot(extremaCoorQuarter(2:end,2),extremaCoorQuarter(2:end,1),'*');
 
 discardedExtrema = discard(extremaCoorFull,DoG1);
-figure;imshow(uint8(I));hold on ;plot(discardedExtrema(2:end,2),discardedExtrema(2:end,1),'*');
-
+% figure;imshow(uint8(I));hold on ;plot(discardedExtrema(2:end,2),discardedExtrema(2:end,1),'+');
+% figure;imshow(uint8(I));hold on ;plot(extremaCoorFull(2:end,2),extremaCoorFull(2:end,1),'*');
+orientedExtrema=KeypointOrientation(DoG1,discardedExtrema);
