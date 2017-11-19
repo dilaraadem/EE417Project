@@ -1,4 +1,4 @@
-function [ discardedExtrema ] = discardLowContrast(extrema, DoG)
+function [ discardedExtrema ] = discard(extrema, DoG)
 
     thresContrast = 0.03;
     eigenRatio = 10;
