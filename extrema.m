@@ -16,8 +16,8 @@ extremaCoor = zeros(1,2);
            
             middleVal = window2(2,2);
             
-            xCoord = i-maskConst+2;
-            yCoord = j-maskConst+2;
+            rowCoor = i-maskConst+2;
+            colCoor = j-maskConst+2;
             
             sortArray = window1(:);
             sortArray(10:12,1) = window2(1,:);
@@ -30,8 +30,8 @@ extremaCoor = zeros(1,2);
             
            
             if (middleVal > sortArray(end)) || (middleVal < sortArray(1))
-                  extremaCoor(end+1,1) = xCoord;      % keypoitsCoor adinda dinamik matrix yarattim cunku kac point olcagini bilmiyoruz 
-                  extremaCoor(end,2) = yCoord;      % prealloction ile de row*col olarak cikiyor. O da cok buyuk. Row sayisi kac point olcagini vericek
+                  extremaCoor(end+1,1) = rowCoor;      % keypoitsCoor adinda dinamik matrix yarattim cunku kac point olcagini bilmiyoruz 
+                  extremaCoor(end,2) = colCoor;      % prealloction ile de row*col olarak cikiyor. O da cok buyuk. Row sayisi kac point olcagini vericek
             end                                         % 1.column x, 2.column y olcak!!!
 
         end

@@ -41,4 +41,6 @@ figure;imshow(uint8(Ihalf));hold on ;plot(extremaCoorHalf(2:end,2),extremaCoorHa
 extremaCoorQuarter = extrema(DoGQ1,DoGQ2,DoGQ3);
 figure;imshow(uint8(Iquarter));hold on ;plot(extremaCoorQuarter(2:end,2),extremaCoorQuarter(2:end,1),'*');
 
+discardedExtrema = discardLowContrast(extremaCoorFull,DoG1);
+figure;imshow(uint8(I));hold on ;plot(discardedExtrema(2:end,2),discardedExtrema(2:end,1),'*');
 
