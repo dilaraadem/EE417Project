@@ -49,11 +49,11 @@ keypointsFull = interpolatedDoG(DoG1,DoG2,DoG3,extremaCoorFull,1);
 discardedKeypointsFull = discard2(keypointsFull, DoG1);
 figure;imshow(uint8(I));hold on ;plot(discardedKeypointsFull(2:end,2),discardedKeypointsFull(2:end,1),'*');
 
-keypointsHalf = interpolatedDoG(DoGHalf1,DoGHalf2,DoGHalf3,extremaCoorHalf,1);
+keypointsHalf = interpolatedDoG(DoGHalf1,DoGHalf2,DoGHalf3,extremaCoorHalf,2);
 discardedKeypointsHalf = discard2(keypointsHalf, DoGHalf1);
 figure;imshow(uint8(Ihalf));hold on ;plot(discardedKeypointsHalf(2:end,2),discardedKeypointsHalf(2:end,1),'*');
 
-keypointsQ = interpolatedDoG(DoGQ1,DoGQ2,DoGQ3,extremaCoorQuarter,1);
+keypointsQ = interpolatedDoG(DoGQ1,DoGQ2,DoGQ3,extremaCoorQuarter,3);
 discardedKeypointsQ = discard2(keypointsQ, DoGQ1);
 figure;imshow(uint8(Iquarter));hold on ;plot(discardedKeypointsQ(2:end,2),discardedKeypointsQ(2:end,1),'*');
 
