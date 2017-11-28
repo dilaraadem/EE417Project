@@ -2,32 +2,49 @@ function [keypoints]=KeypointOrientation(I,keypoints)
  
  
 [row,col]=size(I);
-points=zeros(16,16);
+points=zeros(8,8);
 orient=zeros(2,2);
 for i=2:size(keypoints,1)
     
 rowCoor = keypoints(i,1);
 colCoor = keypoints(i,2);
 if colCoor > 8 && rowCoor >8 && rowCoor+8<row && colCoor+8<col
-points=I(((rowCoor-8):(rowCoor+8)),(colCoor-8):(colCoor+8));
+points=I(((rowCoor-4):(rowCoor+4)),(colCoor-4):(colCoor+4));
 points=imgaussfilt(points,1.6*1.5);
-    for k=2:15 % her point i?in 16x16 l?k window i?erisindeki her noktan?n y?n?n? buluyor. Bunu histograma aktar?p 10 derecelik aral?klara yerle?tirmemiz laz?m.
-        %Sonra oradaki peak noktas?n? bulup bu pointin orientation? bu
-        %diye kaydetmemiz laz?m.
-        for p=2:15
-        orient(p,1)=double(sqrt(abs(points(k+1,p)-points(k-1,p))^2+(abs(points(k,p+1)-points(k,p-1))^2)));%magnitude
- 
-        orient(p,2)=double(atand(((points(k,p+1)-points(k,p-1))/((points(k+1,p)-points(k-1,p))))));%%theta direction
-            if orient(p,2)<0
-                orient(p,2)=360 + orient(p,2);
-            end
-            orient(p,2)=floor(orient(p,2)/10)*10;
-            
-        end
-    end
- 
+[dy,dx]=gradient(double(points));
+M=sqrt(dy.^2 + dx.^2);%magnitude
+theta=atan2(dy,dx)*180/pi; %yön
+theta=M.*theta;
+theta=(floor(theta/10)*10 + 360);
+theta=mod(theta,360);
+
+
+theta=theta(:);
+
+elements=unique(theta,'stable');
+
+
+freq=[];
+for k=1:size(elements)
+
+
+freq(k)=sum( theta(:) == elements(k));%compute frequency of each element
+
 end
-mod=mode(orient(:,2));
-keypoints(i,3)=mod;
- 
+freq=freq*100/max(freq);
+
+for k=1:size(elements)
+    if freq(k)==100
+    keypoints(i,3)=elements(k)/10;
+    elseif freq(k)>=80 && freq(k)<100
+    keypoints(end+1,1)=rowCoor;
+    keypoints(end,2)=colCoor;
+    keypoints(end,3)=elements(k)/10;
+    end
+    
+end
+
+
+end
+end
 end
