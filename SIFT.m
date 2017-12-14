@@ -2,7 +2,7 @@ clc;
 clear all;
 close all;
 
-I=imread('img3.jpg');
+I=imread('dataset/img3.jpg');
 %I=imresize(I,0.2);
 I=double(rgb2gray(I));
 k=sqrt(2);

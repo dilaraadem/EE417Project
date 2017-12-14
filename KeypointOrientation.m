@@ -3,7 +3,7 @@ function [keypoints]=KeypointOrientation(I,keypoints)
  
 [row,col]=size(I);
 points=zeros(8,8);
-orient=zeros(2,2);
+
 for i=2:size(keypoints,1)
     
 rowCoor = keypoints(i,1);
@@ -14,11 +14,10 @@ points=imgaussfilt(points,1.6*1.5);
 [dy,dx]=gradient(double(points));
 M=sqrt(dy.^2 + dx.^2);%magnitude
 theta=atan2(dy,dx)*180/pi; %yön
-theta=M.*theta;
+
 theta=(floor(theta/10)*10 + 360);
 theta=mod(theta,360);
-
-
+%imshow(points); hold on; quiver(dy,dx);
 theta=theta(:);
 
 elements=unique(theta,'stable');
