@@ -1,4 +1,4 @@
-function [keypoints]=KeypointOrientation(I,keypoints,windowSize)
+function [keypoints]=KeypointOrientation(I,keypoints,windowSize,octave)
  
  
 [row,col]=size(I);
@@ -10,35 +10,36 @@ rowCoor = keypoints(i,1);
 colCoor = keypoints(i,2);
 if colCoor > windowSize && rowCoor >windowSize && rowCoor+windowSize<row && colCoor+windowSize<col
 points=I(((rowCoor-windowSize/2+1):(rowCoor+windowSize/2)),(colCoor-windowSize/2+1):(colCoor+windowSize/2));
-points=imgaussfilt(points,1.6*1.5);
+points=imgaussfilt(points,octave*1.5);
 [dy,dx]=gradient(double(points));
 M=sqrt(dy.^2 + dx.^2);%magnitude
 theta=atan2(dy,dx)*180/pi; %yön
 
 theta=(floor(theta/10)*10 + 360);
-theta=mod(theta,360);
+theta=mod(theta,360)/10 +1;
 %imshow(points); hold on; quiver(dy,dx);
+arr=Histogrammer(theta,M,36);
 theta=theta(:);
 
 elements=unique(theta,'stable');
+% 
+% 
+% freq=[];
+% for k=1:size(elements)
+% 
+% 
+% freq(k)=sum( theta(:) == elements(k));%compute frequency of each element
+% 
+% end
+freq=arr*100/max(arr);
 
-
-freq=[];
-for k=1:size(elements)
-
-
-freq(k)=sum( theta(:) == elements(k));%compute frequency of each element
-
-end
-freq=freq*100/max(freq);
-
-for k=1:size(elements)
+for k=1:35
     if freq(k)==100
-    keypoints(i,3)=elements(k)/10;
+    keypoints(i,3)=theta(k);
     elseif freq(k)>=80 && freq(k)<100
     keypoints(end+1,1)=rowCoor;
     keypoints(end,2)=colCoor;
-    keypoints(end,3)=elements(k)/10;
+    keypoints(end,3)=theta(k);
     end
     
 end
