@@ -1,15 +1,15 @@
-function [keypoints]=KeypointOrientation(I,keypoints)
+function [keypoints]=KeypointOrientation(I,keypoints,windowSize)
  
  
 [row,col]=size(I);
-points=zeros(8,8);
+points=[];
 
 for i=2:size(keypoints,1)
     
 rowCoor = keypoints(i,1);
 colCoor = keypoints(i,2);
-if colCoor > 8 && rowCoor >8 && rowCoor+8<row && colCoor+8<col
-points=I(((rowCoor-4):(rowCoor+4)),(colCoor-4):(colCoor+4));
+if colCoor > windowSize && rowCoor >windowSize && rowCoor+windowSize<row && colCoor+windowSize<col
+points=I(((rowCoor-windowSize/2+1):(rowCoor+windowSize/2)),(colCoor-windowSize/2+1):(colCoor+windowSize/2));
 points=imgaussfilt(points,1.6*1.5);
 [dy,dx]=gradient(double(points));
 M=sqrt(dy.^2 + dx.^2);%magnitude
@@ -42,6 +42,24 @@ for k=1:size(elements)
     end
     
 end
+
+
+              
+%                [prow,pcol]=size(points);
+%                 for k=1:4:prow-3 %%feature vector is being created
+%                     for p=1:4:pcol-3
+%                        miniPoint=points(k:k+3,p:p+3);
+%                        [dy,dx]=gradient(miniPoint);
+%                        magtheta=sqrt(dy.^2 + dx.^2);
+%                        theta2=atan2(dy,dx)*180/2*pi;
+%                        
+%                        theta2=theta2-keypoints(i,3)*10;
+%                        theta2=mod(theta2,360);
+%                        theta2=floor(theta2/45)+1;
+%                       
+%                        
+%                     end               
+%                 end
 
 
 end
