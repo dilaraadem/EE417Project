@@ -1,8 +1,6 @@
-clc;
-clear all;
-close all;
+function [features]=SIFT(I)
 
-I=imread('dataset/img3.jpg');
+
 %I=imresize(I,0.2);
 I=double(rgb2gray(I));
 k=sqrt(2);
@@ -61,3 +59,4 @@ features=KeypointOrientation(DoG1,discardedKeypointsFull,16,1.6);
 
 
 
+end

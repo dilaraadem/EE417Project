@@ -1,4 +1,4 @@
-function [keypoints]=KeypointOrientation(I,keypoints,windowSize,octave)
+function [features]=KeypointOrientation(I,keypoints,windowSize,octave)
  
  
 [row,col]=size(I);
