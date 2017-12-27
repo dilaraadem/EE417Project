@@ -3,7 +3,7 @@ function [keypoints]=KeypointOrientation(I,keypoints,windowSize,octave)
  
 [row,col]=size(I);
 points=[];
-
+features=[];
 for i=2:size(keypoints,1)
     
 rowCoor = keypoints(i,1);
@@ -44,25 +44,45 @@ for k=1:35
     
 end
 
-
+                descriptor=zeros(1,4*4*8);
               
-%                [prow,pcol]=size(points);
-%                 for k=1:4:prow-3 %%feature vector is being created
-%                     for p=1:4:pcol-3
-%                        miniPoint=points(k:k+3,p:p+3);
-%                        [dy,dx]=gradient(miniPoint);
-%                        magtheta=sqrt(dy.^2 + dx.^2);
-%                        theta2=atan2(dy,dx)*180/2*pi;
-%                        
-%                        theta2=theta2-keypoints(i,3)*10;
-%                        theta2=mod(theta2,360);
-%                        theta2=floor(theta2/45)+1;
-%                       
-%                        
-%                     end               
-%                 end
+               [prow,pcol]=size(points);
+               binNum=1;
+                gaus=imgaussfilt(points,octave*0.5);
+                points=imrotate(points,keypoints(i,3)*10);
+                for k=1:4:prow-3 %%feature vector is being created
+                    for p=1:4:pcol-3
+                        
+                       miniPoint=points(k:k+3,p:p+3);
+                       [dy,dx]=gradient(miniPoint);
+                       magtheta=sqrt(dy.^2 + dx.^2);
+                       theta2=atan2(dy,dx)*180/2*pi;
+                       
+                      
+                       theta2=mod(theta2,360);
+                       theta2=floor(theta2/45)+1;
+                       arr=Histogrammer(theta2,magtheta,8);
+                       
+                       descriptor(binNum:(binNum +7))=arr;
+                       descriptor=normr(descriptor);
+                     
+                           
+                       binNum=binNum+8;
+                      end               
+                end
+     for t=1:128
 
+    if descriptor(t)>0.2
+        descriptor(t)=0.2;
+    end
+    
+    
+    descriptor=normr(descriptor);
+     end           
+features(:,i)=descriptor;
 
 end
 end
+
+
 end
