@@ -63,8 +63,6 @@ for i=2:size(keypoints,1)
                 magtheta=sqrt(dy.^2 + dx.^2);
                 theta2=mod((mod(atan2(dy,dx)*180/2*pi,360) - keypoints(i,3)*10),360); %Orientation invariant KONTROL ET!!
                 
-                
-                %theta2=mod(theta2,360);
                 theta2=floor(theta2/45)+1;
                 arr=Histogrammer(theta2,magtheta,8,weight2_win);
                 
@@ -81,9 +79,10 @@ for i=2:size(keypoints,1)
         for t=1:128
             if descriptor(t)>0.2
                 descriptor(t)=0.2;
-                descriptor=normr(descriptor);
             end
         end
+        descriptor=normr(descriptor);
+        
         features(:,i)=descriptor;
 end
     

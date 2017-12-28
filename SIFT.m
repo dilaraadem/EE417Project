@@ -1,4 +1,4 @@
-function [features]=SIFT(I)
+function [features,locations]=SIFT(I)
 
 
 %I=imresize(I,0.2);
@@ -59,6 +59,7 @@ discardedKeypointsQ = discard2(keypointsQ, DoGQ1);
 [features2,locations2]=KeypointOrientation(DoGHalf2,discardedKeypointsHalf,16,2*1.6);
 [features3,locations3]=KeypointOrientation(DoGQ2,discardedKeypointsQ,16,4*1.6);
 
+locations1 = locations1(:,1:2);
 locations2 = locations2(:,1:2)*2;
 locations3 = locations3(:,1:2)*4;
 

@@ -1,4 +1,4 @@
-function [features]=KeypointOrientation(I,keypoints,windowSize,octave)
+function [features,keypoints]=KeypointOrientation(I,keypoints,windowSize,octave)
 
 [row,col]=size(I);
 points=[];
@@ -42,10 +42,13 @@ for i=2:size(keypoints,1)
     end
 end
 
-keypoints(:,1) == -1
+keypoints((keypoints(:,1) == -1),:) =[];
 
 for i=2:size(keypoints,1)
         %DELETE UNORIENTED POINTS!!
+        rowCoor = keypoints(i,1);
+        colCoor = keypoints(i,2);
+        points=I(((rowCoor-windowSize/2+1):(rowCoor+windowSize/2)),(colCoor-windowSize/2+1):(colCoor+windowSize/2));
         descriptor=zeros(1,4*4*8);
         weight2=fspecial('gaussian',windowSize,windowSize/1.5);
         [prow,pcol]=size(points);
@@ -58,8 +61,8 @@ for i=2:size(keypoints,1)
                 weight2_win = weight2(k:k+3,p:p+3);
                 [dy,dx]=gradient(miniPoint);
                 magtheta=sqrt(dy.^2 + dx.^2);
-                theta2=mod((mod(atan2(dy,dx)*180/2*pi,360) - keypoints(i,3)*10),360); %Orientation invariant KONTROL ET!!
-                
+                %theta2=mod((mod(atan2(dy,dx)*180/2*pi,360) - keypoints(i,3)*10),360); %Orientation invariant KONTROL ET!!
+                theta2=mod((moatan2(dy,dx)*180/2*pi,360)
                 
                 %theta2=mod(theta2,360);
                 theta2=floor(theta2/45)+1;
@@ -84,6 +87,5 @@ for i=2:size(keypoints,1)
         features(:,i)=descriptor;
 end
     
-
 
 end

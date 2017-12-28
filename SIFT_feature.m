@@ -8,11 +8,11 @@
 
 %%initial image
 tic
-clear;
-clc;
+% clear;
+% clc;
 row=256;
 colum=256;
-img=imread('dataset/img3.jpg');
+img=imread('dataset/img5.jpg');
 img=imresize(img,[row,colum]);
 img=rgb2gray(img);
 % img=histeq(img);
