@@ -13,7 +13,7 @@ for i=2:size(keypoints,1)
         weight = fspecial('gaussian',windowSize,1.5*octave);
         [dy,dx]=gradient(double(points));
         M=sqrt(dy.^2 + dx.^2);%magnitude
-        theta=atan2(dy,dx)*180/pi; %yön
+        theta=atan2(dy,dx)*180/pi; %yÃ¶n
         %M = imgaussfilt(M,octave*1.5);
         
         theta=(floor(theta/10)*10 + 360);
@@ -22,7 +22,7 @@ for i=2:size(keypoints,1)
         arr=Histogrammer(theta,M,36,weight);
         theta=theta(:);
         
-        elements=unique(theta,'stable');
+       % elements=unique(theta,'stable');
        
         freq=arr*100/max(arr);
         
@@ -73,7 +73,7 @@ for i=2:size(keypoints,1)
                 binNum=binNum+8;
             end
         end
-        %Bu kýsma bir daha bak!!
+        %Bu kÃ½sma bir daha bak!!
         %original paperda 1-d var oraya bak!!!
         descriptor=normr(descriptor);
         for t=1:128
