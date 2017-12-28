@@ -229,6 +229,7 @@ for i=1:extr_volume
        for j=1:reg_volume
            c1=-180+x;
            c2=-171+x;
+           asil = weight(ceil(j/width),mod(j-1,width)+1); %AO!!
            if(c1<0||c2<0)
            if(abs(reg_theta(j))<abs(c1)&&abs(reg_theta(j))>=abs(c2))
                mag_count=mag_count+reg_mag(j)*weight(ceil(j/width),mod(j-1,width)+1);
