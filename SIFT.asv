@@ -60,8 +60,9 @@ discardedKeypointsQ = discard2(keypointsQ, DoGQ1);
 [features3,locations3]=KeypointOrientation(DoGQ2,discardedKeypointsQ,16,4*1.6);
 
 locations2 = locations2(:,1:2)*2;
-locations3 = locations3(:,1:2)*4;
-
+locations3 = locations
+%features=zeros(128,(size(features1,2)+size(features2,2)+size(features3,2)));
+%textCoor = cat(1,textCoor,notes{i}.boxCoor);%keypoint icin
 features=[];
 features=cat(2,features,features1);
 features=cat(2,features,features2);

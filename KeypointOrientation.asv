@@ -1,4 +1,4 @@
-function [features,keypoints]=KeypointOrientation(I,keypoints,windowSize,octave)
+function [features]=KeypointOrientation(I,keypoints,windowSize,octave)
 
 [row,col]=size(I);
 points=[];
@@ -42,13 +42,10 @@ for i=2:size(keypoints,1)
     end
 end
 
-keypoints((keypoints(:,1) == -1),:) =[];
+keypoints(:,1) == -1
 
 for i=2:size(keypoints,1)
         %DELETE UNORIENTED POINTS!!
-        rowCoor = keypoints(i,1);
-        colCoor = keypoints(i,2);
-        points=I(((rowCoor-windowSize/2+1):(rowCoor+windowSize/2)),(colCoor-windowSize/2+1):(colCoor+windowSize/2));
         descriptor=zeros(1,4*4*8);
         weight2=fspecial('gaussian',windowSize,windowSize/1.5);
         [prow,pcol]=size(points);
@@ -87,5 +84,6 @@ for i=2:size(keypoints,1)
         features(:,i)=descriptor;
 end
     
+
 
 end
