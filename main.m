@@ -2,6 +2,7 @@ clc;
 clear all;
 close all;
 
+tic
 I=imread('dataset/img3.jpg');
 I_comp = imread('dataset/img5.jpg');
 
@@ -20,13 +21,18 @@ loc2(:,1)=temp;
 
 pairs = matchFeatures(feature1',feature2');
 
-figure;imshow(uint8(I));hold on;
+%figure;imshow(uint8(I));hold on;
 
+pairs = matchFeatures(feature1',feature2','Method','Exhaustive','unique',10);
+
+matchedLoc1 = loc1(pairs(:,1),:);
+matchedLoc2 = loc2(pairs(:,2),:);
+
+figure;
+showMatchedFeatures(I,I_comp,matchedLoc1,matchedLoc2,'montage');
     
-   plot(locations1(indexPairs(:,1),2),locations1(Pairs(:,1),1),'LineStyle','none','Marker','*','MarkerSize',10);
 
-    figure;imshow(I2);hold on; plot(locations2(indePairs(:,2),2),locations2(indexPairs(:,2),1),'LineStyle','none','Marker','*','MarkerSize',10);
-
+toc
 
 
 
@@ -36,13 +42,6 @@ figure;imshow(uint8(I));hold on;
 
 
 
-% pairs = matchFeatures(feature1',feature2');
-% 
-% matchedLoc1 = loc1(pairs(:,1),:);
-% matchedLoc2 = loc2(pairs(:,2),:);
-% 
-% figure;
-% showMatchedFeatures(I,I_comp,matchedLoc1,matchedLoc2,'montage');
 
 
 % size1=size(feat(:,:));
@@ -57,3 +56,7 @@ figure;imshow(uint8(I));hold on;
 % %     end
 % %     
 % end
+
+%    plot(loc1(pairs(:,1),2),loc1(pairs(:,1),1),'y','LineStyle','none','Marker','*','MarkerSize',10);
+% 
+%     figure;imshow(I_comp);hold on; plot(loc2(pairs(:,2),2),loc2(pairs(:,2),1),'y','LineStyle','none','Marker','*','MarkerSize',10);
