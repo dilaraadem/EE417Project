@@ -278,6 +278,7 @@ for i=1:extr_volume
         if((m/2^(extrema(4*(i-1)+1)-2)-pixel*d*sqrt(2)/2)>x&&x>(pixel*d/2*sqrt(2))&&(n/2^(extrema(4*(i-1)+1)-2)-pixel*d/2*sqrt(2))>y&&y>(pixel*d/2*sqrt(2)))
         sub_x=(x-d*pixel/2+1):(x+d*pixel/2);
         sub_y=(y-d*pixel/2+1):(y+d*pixel/2);
+
         sub=zeros(2,length(sub_x)*length(sub_y));
         j=1;
         for p=1:length(sub_x)

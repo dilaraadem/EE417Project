@@ -55,9 +55,9 @@ keypointsQ = interpolatedDoG(DoGQ1,DoGQ2,DoGQ3,extremaCoorQuarter,3);
 discardedKeypointsQ = discard2(keypointsQ, DoGQ1);
 %figure;imshow(uint8(Iquarter));hold on ;plot(discardedKeypointsQ(2:end,2),discardedKeypointsQ(2:end,1),'*');
 
-[features1,locations1]=KeypointOrientation(DoG2,discardedKeypointsFull,16,1.6); 
-[features2,locations2]=KeypointOrientation(DoGHalf2,discardedKeypointsHalf,16,2*1.6);
-[features3,locations3]=KeypointOrientation(DoGQ2,discardedKeypointsQ,16,4*1.6);
+[features1,locations1]=KeypointOrientation(DoG1,discardedKeypointsFull,16,1.6); 
+[features2,locations2]=KeypointOrientation(DoGHalf1,discardedKeypointsHalf,16,2*1.6);
+[features3,locations3]=KeypointOrientation(DoGQ1,discardedKeypointsQ,16,4*1.6);
 
 locations1 = locations1(:,1:2);
 locations2 = locations2(:,1:2)*2;
