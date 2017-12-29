@@ -19,13 +19,13 @@ temp=loc2(:,2);
 loc2(:,2)=loc2(:,1);
 loc2(:,1)=temp;
 
-% pairs = matchFeatures(feature1',feature2','Method','Threshold');
-% 
-% %figure;imshow(uint8(I));hold on;
-% 
-% 
-% matchedLoc1 = loc1(pairs(:,1),:);
-% matchedLoc2 = loc2(pairs(:,2),:);
+pairs = matchFeatures(feature1',feature2','Method','Threshold');
+
+%figure;imshow(uint8(I));hold on;
+
+
+matchedLoc1 = loc1(pairs(:,1),:);
+matchedLoc2 = loc2(pairs(:,2),:);
 
 figure;
 showMatchedFeatures(I,I_comp,matchedLoc1,matchedLoc2,'montage');
