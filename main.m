@@ -3,8 +3,8 @@ clear all;
 close all;
 
 tic
-I=imread('dataset/img3.jpg');
-I_comp = imread('dataset/img5.jpg');
+I=imread('dataset/obj04_005.jpg');
+I_comp = imread('dataset/test31.jpg');
 
 [feature1,loc1]=SIFT(I);
 [feature2,loc2]=SIFT(I_comp);
@@ -19,14 +19,13 @@ temp=loc2(:,2);
 loc2(:,2)=loc2(:,1);
 loc2(:,1)=temp;
 
-pairs = matchFeatures(feature1',feature2');
-
-%figure;imshow(uint8(I));hold on;
-
-pairs = matchFeatures(feature1',feature2','Method','Exhaustive','unique',10);
-
-matchedLoc1 = loc1(pairs(:,1),:);
-matchedLoc2 = loc2(pairs(:,2),:);
+% pairs = matchFeatures(feature1',feature2','Method','Threshold');
+% 
+% %figure;imshow(uint8(I));hold on;
+% 
+% 
+% matchedLoc1 = loc1(pairs(:,1),:);
+% matchedLoc2 = loc2(pairs(:,2),:);
 
 figure;
 showMatchedFeatures(I,I_comp,matchedLoc1,matchedLoc2,'montage');
